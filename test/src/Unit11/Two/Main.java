@@ -26,10 +26,13 @@ public class Main
                 System.exit(0);
             }
 
-            makeArrayList();
-            inputData(file);
+            ArrayList<String> list = new ArrayList<>();
+            list = inputData(file,list);
 
-
+            for (int i = 0; i < list.size(); i++)
+            {
+                System.out.println(list.get(i));
+            }
 
         }
 
@@ -41,19 +44,13 @@ public class Main
 
     }
 
-    public static ArrayList<String> makeArrayList() throws IOException
+    public static ArrayList <String> getList(ArrayList<String> list)
     {
-        //makes arraylist
-        ArrayList<String> list = new ArrayList<>();
-
         return list;
     }
 
-    public static ArrayList<String> inputData(File file) throws IOException
+    public static ArrayList<String> inputData(File file, ArrayList<String> list) throws IOException
     {
-        //gets access to the list
-        ArrayList<String> list = makeArrayList();
-
         //scanner to read the files
         Scanner reader = new Scanner(file);
 
@@ -70,7 +67,7 @@ public class Main
             list.add(data);
         }
 
-        return list;
 
+        return list;
     }
 }

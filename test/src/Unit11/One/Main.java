@@ -8,7 +8,7 @@ public class Main {
     {
         //writing file
         //makes File reference to the path
-        File file = new File("C:\\Users\\boutinm\\Documents\\GitHub\\readingFromFiles\\One\\Lotr.txt");
+        File file = new File("2_lotrMagicWord.txt");
         FileWriter text = new FileWriter(file, true);
         PrintWriter writer = new PrintWriter(text);
 
