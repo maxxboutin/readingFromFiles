@@ -4,16 +4,18 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception
+    {
         //writing file
         //makes File reference to the path
-        File file = new File("C:\\Users\\boutinm\\Documents\\GitHub\\readingFromFiles\\test\\Lotr.txt");
+        File file = new File("C:\\Users\\boutinm\\Documents\\GitHub\\readingFromFiles\\One\\Lotr.txt");
         FileWriter text = new FileWriter(file, true);
         PrintWriter writer = new PrintWriter(text);
 
         try {
             //checks for a file existing
-            if (!file.exists()) {
+            if (!file.exists())
+            {
                 System.out.println("No file");
                 System.exit(0);
             }
@@ -27,7 +29,8 @@ public class Main {
             ArrayList<String> list = new ArrayList<>();
 
             //loops array saves data to arraylist
-            while (reader.hasNextLine()) {
+            while (reader.hasNextLine())
+            {
                 data = reader.nextLine();
                 list.add(data);
             }
@@ -36,7 +39,8 @@ public class Main {
             list.sort(null);
 
             //prints new alphabetical order list
-            for (String word : list) {
+            for (String word : list)
+            {
                 System.out.println(word);
             }
 
@@ -62,8 +66,8 @@ public class Main {
 
 
             //for loop to print out the new list and write new names in file
-            for (int i = 0; i < list.size(); i++) {
-
+            for (int i = 0; i < list.size(); i++)
+            {
                 String name = list.get(i);
                 writer.println(name);
                 System.out.println(name);
@@ -73,7 +77,11 @@ public class Main {
             //closes the file
             reader.close();
             writer.close();
-        } catch (FileNotFoundException e) {
+
+        }
+
+        catch (FileNotFoundException e)
+        {
             e.printStackTrace();
         }
     }
