@@ -1,38 +1,43 @@
 package Unit11.Two;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
+import java.lang.Math;
 
 public class Main
 {
 
     public static void main(String[] args) throws IOException {
 
-        //writing file
         //makes File reference to the path
-        File file = new File("C:\\Users\\boutinm\\Documents\\GitHub\\readingFromFiles\\test\\2_lotrMagicWord.txt");
-        FileWriter text = new FileWriter(file);
-        PrintWriter writer = new PrintWriter(text);
+        File file = new File("C:\\Users\\boutinm\\Documents\\GitHub\\readingFromFiles\\test\\src\\2_lotrMagicWord.txt");
+        if (!file.exists())
+        {
+            System.out.println("No file");
+            System.exit(0);
+        }
 
         try
         {
-            if (!file.exists())
+            ArrayList <String> listOfNames = inputData(file);
+
+            for (String s : listOfNames)
             {
-                System.out.println("No file");
-                System.exit(0);
+                System.out.println(s);
             }
 
-            ArrayList<String> list = new ArrayList<>();
-            list = inputData(file,list);
+            //prints random name from list
+            String passwordName = findRandName(listOfNames);
+            System.out.println("\nRandom Name Selected: " + passwordName);
 
-            for (int i = 0; i < list.size(); i++)
-            {
-                System.out.println(list.get(i));
-            }
+            System.out.println(passwordName);
+
+            //gets the name of the random person
+            System.out.println(passwordName);
+
+            String password = findPassword(listOfNames, passwordName);
+            System.out.println("Password: " + password);
 
         }
 
@@ -44,30 +49,58 @@ public class Main
 
     }
 
-    public static ArrayList <String> getList(ArrayList<String> list)
-    {
-        return list;
-    }
-
-    public static ArrayList<String> inputData(File file, ArrayList<String> list) throws IOException
+    public static ArrayList<String> inputData(File file) throws IOException
     {
         //scanner to read the files
         Scanner reader = new Scanner(file);
 
         //variable to save data
-        String data = "";
+        String data;
 
-        //loops array saves data to arraylist
+        //makes a String array
+        ArrayList <String> tempList = new ArrayList<>();
+
+        //loops array and saves the data to array
         while (reader.hasNextLine())
         {
             data = reader.nextLine();
-            String [] output = data.split(":");
-            System.out.println(output[0]);
-
-            list.add(data);
+            String fName = data.split(":")[0];
+            tempList.add(fName);
         }
 
+        reader.close();
+        return tempList;
+    }
 
-        return list;
+    public static String findRandName(ArrayList <String> listOfNames)
+    {
+
+        int randomNameNum = (int) (Math.random() * (listOfNames.size() - 1));
+        String randName = listOfNames.get(randomNameNum);
+
+        randName = randName.split(":")[1];
+        return randName;
+
+
+    }
+
+    //public static String getRandName(randomName){return "null"}
+
+    public static String findPassword(ArrayList <String> listOfNames, String passwordName)
+    {
+
+        Scanner reader = new Scanner(System.in);
+
+        for (int i = 0; i < listOfNames.size() - 1; i++)
+        {
+            String userInfo = reader.nextLine();
+
+            if (userInfo.split(":")[0].equals(passwordName))
+            {
+                return userInfo.split(":")[1];
+            }
+        }
+        reader.close();
+        return null;
     }
 }
