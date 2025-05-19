@@ -20,17 +20,25 @@ public class Main
 
         try
         {
-            ArrayList <String> listOfNames = inputData(file);
+            //makes arraylist and prints out all the names in the list
+            ArrayList <String> listOfNames = firstNameGetter(file);
+            ArrayList <String> listOfPasswords = (listOfNames, )
+
 
             for (String s : listOfNames)
             {
                 System.out.println(s);
             }
 
-            //prints random name from list
+            //prints random name from the list
             String passwordName = findRandName(listOfNames);
             System.out.println("\nRandom Name Selected: " + passwordName);
 
+
+
+
+
+            /*
             System.out.println(passwordName);
 
             //gets the name of the random person
@@ -38,6 +46,7 @@ public class Main
 
             String password = findPassword(listOfNames, passwordName);
             System.out.println("Password: " + password);
+             */
 
         }
 
@@ -49,7 +58,7 @@ public class Main
 
     }
 
-    public static ArrayList<String> inputData(File file) throws IOException
+    public static ArrayList<String> firstNameGetter(File file) throws IOException
     {
         //scanner to read the files
         Scanner reader = new Scanner(file);
@@ -75,12 +84,11 @@ public class Main
     public static String findRandName(ArrayList <String> listOfNames)
     {
 
-        int randomNameNum = (int) (Math.random() * (listOfNames.size() - 1));
+        int randomNameNum = (int) (Math.random() * 10);
         String randName = listOfNames.get(randomNameNum);
-
-        randName = randName.split(":")[1];
         return randName;
 
+        //randName = randName.substring(0, (randName.length() + 1 ) / 2);
 
     }
 
