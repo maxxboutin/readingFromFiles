@@ -1,7 +1,9 @@
 package Unit11.Two;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 import java.lang.Math;
 
@@ -22,42 +24,49 @@ public class Main
         {
             //makes arraylist and prints out all the names in the list
             ArrayList <String> listOfNames = firstNameGetter(file);
-            ArrayList <String> listOfPasswords = (listOfNames, )
-
-
-            for (String s : listOfNames)
-            {
-                System.out.println(s);
-            }
 
             //prints random name from the list
-            String passwordName = findRandName(listOfNames);
-            System.out.println("\nRandom Name Selected: " + passwordName);
+            String randName = findRandName(listOfNames);
+            System.out.println("\nRandom Name Selected: " + randName);
 
+            //finds the password of the random name that is found
+            String password = findPassword(randName, file);
 
+            //scanner for intake of the user's password
+            Scanner userPassword = new Scanner(System.in);
 
+            //makes a String to take in the user's password
+            String userInputPassword = "null";
 
+            //if the password that the user enters isn't equal to the saved
+            //one, it will continue asking until its correct
+            while (userInputPassword != password)
+            {
+                System.out.print("Enter Your Password: ");
 
-            /*
-            System.out.println(passwordName);
+                userInputPassword = userPassword.nextLine();
 
-            //gets the name of the random person
-            System.out.println(passwordName);
+                if (userInputPassword.equals(password))
+                {
+                    System.out.println("\nPassword Correct.");
+                    break;
+                }
+                else
+                {
+                    System.out.println("Password Incorrect. Try again.\n");
+                }
+            }
 
-            String password = findPassword(listOfNames, passwordName);
-            System.out.println("Password: " + password);
-             */
-
+            //prints out the password the correct password of the name selected
+            System.out.println("Password Selected: " + password);
         }
-
         catch (IOException e)
         {
             e.printStackTrace();
         }
-
-
     }
 
+    //this method will get the first name of all the people in the file
     public static ArrayList<String> firstNameGetter(File file) throws IOException
     {
         //scanner to read the files
@@ -74,6 +83,7 @@ public class Main
         {
             data = reader.nextLine();
             String fName = data.split(":")[0];
+            System.out.println(fName);
             tempList.add(fName);
         }
 
@@ -81,6 +91,7 @@ public class Main
         return tempList;
     }
 
+    //gets a random name from the file
     public static String findRandName(ArrayList <String> listOfNames)
     {
 
@@ -88,27 +99,28 @@ public class Main
         String randName = listOfNames.get(randomNameNum);
         return randName;
 
-        //randName = randName.substring(0, (randName.length() + 1 ) / 2);
-
     }
 
-    //public static String getRandName(randomName){return "null"}
-
-    public static String findPassword(ArrayList <String> listOfNames, String passwordName)
+    //finds the password of the random name that is selected
+    public static String findPassword(String randName, File file) throws FileNotFoundException
     {
+        //scanner to read the files
+        Scanner reader = new Scanner(file);
 
-        Scanner reader = new Scanner(System.in);
+        //variable to save the file input
+        String fileInput;
 
-        for (int i = 0; i < listOfNames.size() - 1; i++)
+        //loops array and saves the data to array
+        while (reader.hasNextLine())
         {
-            String userInfo = reader.nextLine();
-
-            if (userInfo.split(":")[0].equals(passwordName))
+            fileInput = reader.nextLine();
+            String pass = fileInput.split(":")[1];
+            if (fileInput.contains(randName))
             {
-                return userInfo.split(":")[1];
+                return pass;
             }
+
         }
-        reader.close();
         return null;
     }
 }

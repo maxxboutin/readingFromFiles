@@ -80,10 +80,9 @@ public class Utils
                     {
                         writer.println(updatedUser.getUserInfo());
                     }
-
-                    else
+                    //else
                     {
-                        writer.println(currentLine);
+                        //writer.println(currentLine);
                     }
                 }
             }
